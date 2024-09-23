@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +33,15 @@ Route::middleware('auth:sanctum')->group(function () {
     //Cart Route
     Route::get('/carts', [CartController::class, 'getAllCart']);
     Route::post('/cart/create', [CartController::class, 'addCartData']);
+    Route::get('/cart/delete/{product_id}', [CartController::class, 'remove']);
+
+    //Checkout Route
+    Route::get('/checkout/items', [OrderController::class, 'checkout']);
+    Route::get('/checkout/proccess', [OrderController::class, 'checkoutProcess']);
+
+    //Order Route
+    Route::get('/orders', [OrderController::class, 'GetAllOrder']);
+    Route::get('/order/{id}', [OrderController::class, 'GetOrderById']);
 
     //Profile Route
     Route::get('/me', [AuthController::class, 'dataMe']);
